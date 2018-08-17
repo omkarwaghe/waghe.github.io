@@ -1,0 +1,146 @@
+<!Doctype html>
+<html lang="en">	
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Dapoli Home page</title>
+<link rel="stylesheet" href="DapoliHome.css">
+<link rel="stylesheet" href="slideshow.css">
+
+<style>
+.main-container{
+	margin:2px 2px 2px 2px;
+	border-color:goldenrod;
+}
+
+.links {
+border-color:black; 
+}
+.footer-home{
+ 
+ background-color: aquamarine;	
+ margin-top:80%;
+ bottom: 0;
+ position:relative;
+ width:100%;
+
+ 
+}
+
+.dapoli-header{
+	background-color:rgba(231, 231, 231, 0.993);
+	padding:15px;
+	text-align:center; 
+	color: rgb(79, 167, 159);
+	position: relative;
+	text-shadow: 1px 2px 4px 4px whitesmoke;
+	margin-bottom: 8px;
+	box-shadow: 2px 4px 4px rgb(37, 37, 37);
+}
+
+.container{
+	height:100%;
+	width: 100%;
+	position: absolute;
+
+	overflow-x:hidden;
+}
+
+.left{
+	width:25%;
+	height:50%;
+	float: left;
+	background-color:whitesmoke;
+	margin-right:5px;
+	margin-bottom:5px;
+	margin-top:5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.right-panel{
+	width: 25%;
+	height: 50%;
+	float: right;
+	background-color:whitesmoke;
+	margin-left:5px;
+	margin-bottom:5px;
+	margin-top:5px;
+	margin-right: 20px;
+	box-shadow: 2px 2px 4px rgb(88, 74, 74);
+	
+}
+
+.center{
+	width: 47%;
+	border: 1px solid black;
+	float:left;
+	height: 50%;
+	margin-top:5px;
+	margin-left: 5px;
+}
+
+#in_right_panel{
+	margin-left: 6px;
+}
+</style>
+</head>
+
+<body>
+	<div class= "main-container">
+		<!-- header of the dapoli and navigation panel-->
+		<div class="dapoli-header">
+		<h1>DAPOLI</h1>
+		</div>
+	<div class="topnav">
+		<a href="History_dapoli.html" target="_blank">History</a>
+		<a href="panchayat_samiti.html" target="_blank">panchayat samiti</a>
+		<a href="nagar_panchayat.html" target="_blank">Nagar panchayat</a>
+		<a href="villages.html" target="_blank">Villages</a>
+		<a href="find_travel_agent.html" target="_blank">Find travel agent</a>
+	</div>
+    <!-- left panel-->
+<div class="container">
+		<div class ="left">
+			<div id="in_right_panel">
+			<h3>Tourist Places </h3>
+				<ul>
+					<li>
+						Anjarle
+					</li>
+					<li>
+						Ladghar
+					</li>
+					<li>
+						Karde
+					</li>
+				</ul>
+			</div>	
+		</div>
+	
+	<div class="center">
+		<object  data="C:\Users\omkar\Desktop\dapoli project\d1\slideshow.html"> 
+		Your browser doesn’t support the object tag. 
+		</object>
+		<!--<img src="C:\Users\omkar\Desktop\dapoli project\img1.jpg" alt="image1"> -->
+	</div>
+	
+	<!-- Right panel-->
+	<div class="right-panel">
+        <div id="in_right_panel">
+			<h2><b>Login</b></h2>
+			<h5><i>Username:</i></h5> <input type="text" name="username" id="username"><br>
+			<h5><i>Password:</i></h5> <input type="text" name="Password" id="Password"> <br><br>
+			<input type="submit" name="login" value="Login">
+		</div>
+	</div>	
+</div>
+<!-- footer Home-->
+	<div class = "footer-home">
+		<h1>About this page</h1>
+		<p> This page will provide all the information about the dapoli and will extends its eminities for the online hotel booking, <br>
+			government documents, banking transactions etc.
+		</div>
+</div>
+</body>
+
+</html>
