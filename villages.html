@@ -55,6 +55,7 @@
                     </tr>
         </thead>
     </table> -->
+    <div id="loopForVillages">
     <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-body">
@@ -62,6 +63,22 @@
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
-          </div>
+        </div>
+    </div>
+    <div id="myHTMLWrapper">
+            
+    </div>
+    <script>
+            var wrapper = document.getElementById("myHTMLWrapper");
+          
+            var myHTML = '';
+          
+            for (var i = 0; i < 10; i++) {
+              myHTML += '<span class="test">Testing out my script! loop #' + (i + 1) + '</span><br/><br/>';
+            }
+          
+            wrapper.innerHTML = myHTML
+          
+          </script>
 </body> 
 </html>
