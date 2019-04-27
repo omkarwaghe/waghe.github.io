@@ -1,6 +1,6 @@
 /* Float four columns side by side */
 .column {
-    float: left;
+    float: center;
     width: 22%;
     padding: 0 2px;
   }
