@@ -4,7 +4,7 @@
 
 /* Float four columns side by side */
 .column {
-    float: center;
+    float: left;
     width: 22%;
     padding: 1px 2px 1px 1px;
   }
