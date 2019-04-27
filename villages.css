@@ -1,6 +1,6 @@
-/* *{
+*{
     box-sizing: border-box;
-} */
+}
 
 /* Float four columns side by side */
 .column {
@@ -19,6 +19,7 @@
   /* Remove extra left and right margins, due to padding */
 .row {
     margin: 2px -5px;
+    margin-left: 2px;
 }
 
   .card{
