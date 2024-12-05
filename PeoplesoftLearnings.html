@@ -1,0 +1,102 @@
+HX_JAVA_TOKEN_VALIDATION_PKG:HX_ADVANTAGE_CLUB_TOKEN()
+
+class HX_ADVANTAGE_CLUB_TOKEN
+   method HX_TEST_JAVA_TOKEN_VALIDATIONS(&Message As Message, &Unique_time As datetime) Returns string;
+end-class;
+
+method HX_TEST_JAVA_TOKEN_VALIDATIONS
+   /+ &Message as Message, +/
+   /+ &Unique_time as DateTime +/
+   /+ Returns String +/
+   
+   Local string &appid, &name, &jwt, &jwt3;
+   
+   Local File &fileLog;
+   Local number &I;
+   Local boolean &nRet;
+   Local datetime &startdtttm, &enddtttm, &enddtttm1, &enddtttm2, &enddtttm3, &enddtttm4, &enddtttm5, &enddtttm6, &enddtttm7;
+   
+   &startdtttm = %Date + %PerfTime;
+   Local string &filpath = GetURL(URL.API_LOG_PATH);
+   &fileLog = GetFile(&filpath | %OperatorId | "-" | %Date | ".log", "w", "a", %FilePath_Absolute);
+   
+   &enddtttm = %Date + %PerfTime;
+   rem Ezhil SQLExec("INSERT INTO PS_HX_COMN_API_LOG VALUES(:1,:2,'Java Onboard token Authorization Start',:3,:4,:5)", %Date, %Date, &startdtttm, &enddtttm, &Unique_time);
+   SQLExec("INSERT INTO PS_HX_ADV_API_LOG VALUES(:1,:2,'Java Advantage Club token Authorization Start',:3,:4,:5)", %Date, %Date, &startdtttm, &enddtttm, &Unique_time);
+   &Message.URIResourceIndex = 1;
+   try
+      Local any &Collection = &Message.IBInfo.IBConnectorInfo;
+      Local boolean &bRet = &Message.IBInfo.LoadConnectorProp("HTTPheader"); /* read token information from JSON header*/
+      For &I = 1 To &Message.IBInfo.IBConnectorInfo.GetNumberOfConnectorProperties();
+         
+         If &Message.IBInfo.IBConnectorInfo.GetConnectorPropertiesType(&I) = %HttpHeader Then
+            
+            &name = &Message.IBInfo.IBConnectorInfo.GetConnectorPropertiesName(&I);
+            &jwt = &Message.IBInfo.IBConnectorInfo.GetConnectorPropertiesValue(&I);
+            
+            If &name = "Authorization" Then /*Header name= Authorization*/
+               &jwt3 = &jwt; /*read the token value*/
+               
+            End-If;
+         End-If;
+         
+      End-For;
+      
+      &fileLog.WriteLine("TEST2");
+      
+      Local JavaObject &JavaTokenValidation = CreateJavaObject("com.auth0.jwt.JWTVerifier"); /* calling the java object */
+      
+      Local object &jwta = &JavaTokenValidation.validatetoken(&jwt3, " "); /*only validating token active or inacative*/
+      
+      If &jwta <> Null Then /*if token active*/
+         
+         &appid = &jwta.getClaim("appid").asString();
+         
+         &fileLog.WriteLine("&appid " | &appid);
+         &appid = Upper(&appid);
+         Local number &LENGTH = Len(&appid);
+         Local number &PLACE1 = 0;
+         Local number &PLACE2 = 0;
+         SQLExec("SELECT CHARINDEX('@',:1,1)", &appid, &PLACE1);
+         &appid = Upper(&appid);
+         
+         SQLExec("SELECT CHARINDEX('\',:1,1)", &appid, &PLACE2);
+         &appid = Upper(&appid);
+         
+         If &PLACE1 <> 0 Then
+            &appid = Substring(&appid, 1, &PLACE1 - 1);
+            
+         End-If;
+         
+         If &PLACE2 <> 0 Then
+            
+            &appid = Substring(&appid, &PLACE2 + 1, &LENGTH);
+         End-If;
+         
+         &JavaTokenValidation = Null;
+         
+         &enddtttm1 = %Date + %PerfTime;
+         rem Ezhil SQLExec("INSERT INTO PS_HX_COMN_API_LOG VALUES(:1,:2,'Java Onboard token Active end',:3,:4,:5)", %Date, %Date, &startdtttm, &enddtttm, &Unique_time);
+         SQLExec("INSERT INTO PS_HX_ADV_API_LOG VALUES(:1,:2,'Java Advantage Club token Active end',:3,:4,:5)", %Date, %Date, &startdtttm, &enddtttm, &Unique_time);
+         
+         Return &appid;
+         
+      Else /*if token inacative*/
+         
+         
+         &appid = "Token inactive";
+         &enddtttm2 = %Date + %PerfTime;
+         rem Ezhil SQLExec("INSERT INTO PS_HX_COMN_API_LOG VALUES(:1,:2,'Java Onboard token inacitve end',:3,:4,:5)", %Date, %Date, &startdtttm, &enddtttm, &Unique_time);
+         SQLExec("INSERT INTO PS_HX_ADV_API_LOG VALUES(:1,:2,'Java Advantage Club token inacitve end',:3,:4,:5)", %Date, %Date, &startdtttm, &enddtttm, &Unique_time);
+         	
+         Return &appid;
+      End-If;
+      
+   catch Exception &ex
+      Return &appid;
+      
+   end-try;
+   
+end-method;
+
+/*--------------------------------------------------------------*/
